@@ -11,6 +11,8 @@ from sklearn.compose import make_column_transformer
 from sklearn.exceptions import DataConversionWarning
 warnings.filterwarnings(action='ignore', category=DataConversionWarning)
 
+prefix = 'opt/ml/processing'
+
 columns_of_interest = ['review_scores_rating','price', 'minimum_nights',
                        'maximum_nights', 'number_of_reviews', 'accommodates', 'guests_included',
                        'bathrooms', 'bedrooms', 'host_total_listings_count', 'host_is_superhost',
@@ -34,7 +36,7 @@ if __name__=='__main__':
     
     print('Received arguments {}'.format(args))
 
-    input_data_path = os.path.join('/opt/ml/processing/input', 'listings.csv')
+    input_data_path = os.path.join('/{}/input'.format(prefix), 'listings.csv')
     
     print('Reading input data from {}'.format(input_data_path))
     df = pd.read_csv(input_data_path, error_bad_lines=False)
@@ -87,11 +89,11 @@ if __name__=='__main__':
     print('Train data shape after preprocessing: {}'.format(train_features.shape))
     print('Test data shape after preprocessing: {}'.format(test_features.shape))
     
-    train_features_output_path = os.path.join('/opt/ml/processing/train', 'train_features.csv')
-    train_labels_output_path = os.path.join('/opt/ml/processing/train', 'train_labels.csv')
+    train_features_output_path = os.path.join('/{}/train'.format(prefix), 'train_features.csv')
+    train_labels_output_path = os.path.join('/{}/train'.format(prefix), 'train_labels.csv')
     
-    test_features_output_path = os.path.join('/opt/ml/processing/test', 'test_features.csv')
-    test_labels_output_path = os.path.join('/opt/ml/processing/test', 'test_labels.csv')
+    test_features_output_path = os.path.join('/{}/test'.format(prefix), 'test_features.csv')
+    test_labels_output_path = os.path.join('/{}/test'.format(prefix), 'test_labels.csv')
     
     print('Saving training features to {}'.format(train_features_output_path))
     pd.DataFrame(train_features).to_csv(train_features_output_path, header=False, index=False)
