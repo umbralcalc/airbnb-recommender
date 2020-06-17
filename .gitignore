@@ -1,4 +1,6 @@
 listings.csv
 test.csv
+test_features.csv
+test_labels.csv
 train.csv
 validation.csv
